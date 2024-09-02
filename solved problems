@@ -1,0 +1,132 @@
+function sortObjectsByProperty(arr, property) {
+    return arr.slice().sort((a, b) => {
+        if (a[property] < b[property]) return -1;
+        if (a[property] > b[property]) return 1;
+        return 0;
+    });
+}
+
+
+
+Find Missing Number
+javascript
+Copy code
+function findMissingNumber(arr) {
+    const n = arr.length;
+    const expectedSum = (n * (n + 1)) / 2;
+    const actualSum = arr.reduce((sum, num) => sum + num, 0);
+    return expectedSum - actualSum;
+}
+
+
+
+Rotate Array
+javascript
+Copy code
+function rotateArray(arr, steps) {
+    const n = arr.length;
+    steps = steps % n;
+    return arr.slice(-steps).concat(arr.slice(0, -steps));
+}
+
+
+
+Longest Substring Without Repeating Characters
+javascript
+Copy code
+function longestSubstringWithoutRepeating(str) {
+    let map = new Map();
+    let start = 0, maxLength = 0;
+
+    for (let end = 0; end < str.length; end++) {
+        if (map.has(str[end])) {
+            start = Math.max(map.get(str[end]) + 1, start);
+        }
+        map.set(str[end], end);
+        maxLength = Math.max(maxLength, end - start + 1);
+    }
+
+    return maxLength;
+}
+
+
+Find Intersection of Two Arrays
+javascript
+Copy code
+function intersection(arr1, arr2) {
+    const set1 = new Set(arr1);
+    return [...new Set(arr2.filter(item => set1.has(item)))];
+}
+
+
+
+Group Anagrams
+javascript
+Copy code
+function groupAnagrams(strs) {
+    const map = new Map();
+    for (const str of strs) {
+        const sorted = str.split('').sort().join('');
+        if (!map.has(sorted)) {
+            map.set(sorted, []);
+        }
+        map.get(sorted).push(str);
+    }
+    return [...map.values()];
+}
+
+
+Deep Clone an Object
+javascript
+Copy code
+function deepClone(obj) {
+    return JSON.parse(JSON.stringify(obj));
+}
+
+
+Find All Pairs with a Given Sum
+javascript
+Copy code
+function findPairsWithSum(arr, target) {
+    const pairs = [];
+    const seen = new Set();
+
+    for (const num of arr) {
+        const complement = target - num;
+        if (seen.has(complement)) {
+            pairs.push([complement, num]);
+        }
+        seen.add(num);
+    }
+
+    return pairs;
+}
+
+
+
+Implement a Simple Event Emitter
+javascript
+Copy code
+class EventEmitter {
+    constructor() {
+        this.events = {};
+    }
+
+    on(event, listener) {
+        if (!this.events[event]) {
+            this.events[event] = [];
+        }
+        this.events[event].push(listener);
+    }
+
+    emit(event, ...args) {
+        if (this.events[event]) {
+            this.events[event].forEach(listener => listener(...args));
+        }
+    }
+
+    off(event, listener) {
+        if (!this.events[event]) return;
+        this.events[event] = this.events[event].filter(l => l !== listener);
+    }
+}
